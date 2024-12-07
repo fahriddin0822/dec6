@@ -21,7 +21,6 @@ const Checkout = () => {
     const firstName = fname.current.value;
     const lastName = lname.current.value;
 
-    // Construct a message with product details
     const productsDetails = cartlist
       .map(
         (product) =>
@@ -38,7 +37,6 @@ ${productsDetails}`;
       message
     )}`;
 
-    // Send message to Telegram
     let api = new XMLHttpRequest();
     api.open("GET", url, true);
     api.send();
@@ -48,8 +46,18 @@ ${productsDetails}`;
     <div className="min-h-[80vh] w-full bg-white">
       <h2>Checkout</h2>
       <form onSubmit={handleSubmit}>
-        <input ref={fname} type="text" placeholder="First Name" className="border" />
-        <input ref={lname} type="text" placeholder="Last Name" className="border" />
+        <input
+          ref={fname}
+          type="text"
+          placeholder="First Name"
+          className="border"
+        />
+        <input
+          ref={lname}
+          type="text"
+          placeholder="Last Name"
+          className="border"
+        />
         <button>Submit</button>
       </form>
     </div>
