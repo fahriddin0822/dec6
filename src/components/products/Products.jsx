@@ -28,12 +28,20 @@ const Products = ({ data }) => {
 
   const productItems = data?.map((product) => (
     <div key={product.id} className="shadow-lg p-3">
-      <div className="w-full h-64 relative">
+      <div className="w-full h-64 relative group">
         <img
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain group-hover:opacity-30 transition-opacity"
           src={product.thumbnail}
-          alt=""
+          alt="Product Thumbnail"
         />
+
+        <button
+          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100  bg-opacity-50 text-black font-bold py-2 px-4 rounded transition-opacity"
+          onClick={() => console.log("Show product images")}
+        >
+          See Images
+        </button>
+
         <button
           onClick={() => handleLike(product)}
           className="absolute top-3 left-3 text-xl"
@@ -44,6 +52,7 @@ const Products = ({ data }) => {
             <FaRegHeart />
           )}
         </button>
+
         <button
           onClick={() => handleCart(product)}
           className="absolute top-3 right-3 text-xl"
@@ -55,6 +64,7 @@ const Products = ({ data }) => {
           )}
         </button>
       </div>
+
       <div className="">
         <h3 className="px-4">{product.title}</h3>
       </div>
