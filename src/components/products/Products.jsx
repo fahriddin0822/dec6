@@ -3,6 +3,8 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { HiOutlineShoppingCart, HiShoppingCart } from "react-icons/hi";
 import { useStateValue } from "../../context";
 import { useCartContext } from "../../context/carts";
+import Modal from "../modal/Modal";
+import ControlledCarousel from "../caroulsel/Carousel";
 
 const Products = ({ data }) => {
   const { setWishlist, wishlist } = useStateValue();
@@ -37,7 +39,7 @@ const Products = ({ data }) => {
 
         <button
           className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100  bg-opacity-50 text-black font-bold py-2 px-4 rounded transition-opacity"
-          onClick={() => console.log("Show product images")}
+          onClick={() => <Modal>akfdkjf</Modal>}
         >
           See Images
         </button>
