@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { HiOutlineShoppingCart, HiShoppingCart } from "react-icons/hi";
 import { useStateValue } from "../../context";
 import { useCartContext } from "../../context/carts";
 import Modal from "../modal/Modal";
-import ControlledCarousel from "../caroulsel/Carousel";
+import ScrollableCarousel from "../caroulsel/Carousel";
 
 const Products = ({ data }) => {
   const { setWishlist, wishlist } = useStateValue();
   const { setCartlist, cartlist } = useCartContext();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleLike = (product) => {
     const existsInWishlist = wishlist.some((item) => item.id === product.id);
@@ -28,6 +30,16 @@ const Products = ({ data }) => {
     );
   };
 
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+    setShowModal(false);
+  };
+
   const productItems = data?.map((product) => (
     <div key={product.id} className="shadow-lg p-3">
       <div className="w-full h-64 relative group">
@@ -38,8 +50,8 @@ const Products = ({ data }) => {
         />
 
         <button
-          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100  bg-opacity-50 text-black font-bold py-2 px-4 rounded transition-opacity"
-          onClick={() => <Modal>akfdkjf</Modal>}
+          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-opacity-50 text-black font-bold py-2 px-4 rounded transition-opacity"
+          onClick={() => openModal(product)}
         >
           See Images
         </button>
@@ -85,6 +97,26 @@ const Products = ({ data }) => {
         Order it for you or for your beloved ones{" "}
       </p>
       <div className="grid container gap-3 grid-cols-4">{productItems}</div>
+
+      {showModal && selectedProduct && (
+        <Modal close={closeModal}>
+          <div className="flex flex-col items-center">
+            <h2 className="text-yellow-300 font-bold bg-black rounded-sm px-3 ">
+              {selectedProduct.title}
+            </h2>
+            <ScrollableCarousel images={selectedProduct.images} />
+            <p className="text-white font-bold bg-black rounded-sm px-3">
+              {selectedProduct.description}
+            </p>
+            <button
+              className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

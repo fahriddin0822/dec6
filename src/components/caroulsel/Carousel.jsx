@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
+import React, { useState } from 'react';
+import { Carousel } from 'react-bootstrap';
 
-function ControlledCarousel() {
+const ScrollableCarousel = ({ images }) => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -9,29 +9,31 @@ function ControlledCarousel() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <div className="product-carousel-container w-full max-w-md mx-auto">
+      <Carousel 
+        activeIndex={index} 
+        onSelect={handleSelect}
+        indicators={true}
+        controls={true}
+        slide={true}
+        touch={true}
+        className="rounded-lg overflow-hidden shadow-lg"
+      >
+        {images.map((image, idx) => (
+          <Carousel.Item key={idx} className="h-96">
+            <img
+              className="d-block w-full h-full object-contain"
+              src={image}
+              alt={`Product view ${idx + 1}`}
+            />
+            <Carousel.Caption className="bg-black bg-opacity-50 p-2">
+              <p>Image {idx + 1} of {images.length}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   );
-}
+};
 
-export default ControlledCarousel;
+export default ScrollableCarousel;
